@@ -1,5 +1,7 @@
 var fs = require('fs');
-var cardType = '';
+var cardType;
+var cardFront;
+var cardBack;
 
 
 function ClozeFlashCard(text, cloze) {
@@ -39,8 +41,8 @@ console.log('');
 
 if (process.argv[2] === 'basic') {
     var fullCardArr = process.argv.splice(3).join(' ').split(',');
-    var cardFront = fullCardArr[0];
-    var cardBack = fullCardArr[1];
+    cardFront = fullCardArr[0];
+    cardBack = fullCardArr[1];
     cardType = 'Basic';
     saveFlashCard(cardFront, cardBack, cardType);
 } else if (process.argv[2] === 'cloze') {
