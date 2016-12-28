@@ -1,3 +1,7 @@
+var fs = require('fs');
+var cardType = '';
+
+
 function ClozeFlashCard(text, cloze) {
     this.clozeCardText = '';
     this.clozeCardCloze = '';
@@ -32,8 +36,24 @@ console.log('');
 console.log('Example: node app.js basic Who was the first president of the United States, George Washington');
 console.log('');
 
-// DONT FORGET TO ADD IN THE VARIABLES
-// fs.writeFile('PICK THE VARIABLES FOR FLASHCARDS YOU WANT TO ADD', '../../saved_flashcards.txt', function(err) {
-//     if (err) throw err;
-//     console.log('It\'s saved!');
-// });
+
+if (process.argv[2] === 'basic') {
+    var fullCardArr = process.argv.splice(3).join(' ').split(',');
+    var cardFront = fullCardArr[0];
+    var cardBack = fullCardArr[1];
+    cardType = 'Basic';
+    saveFlashCard(cardFront, cardBack, cardType);
+} else if (process.argv[2] === 'cloze') {
+
+} else {
+    console.log('Please enter a valid flashcard argument');
+}
+
+
+
+function saveFlashCard(front, back, type) {
+    fs.appendFile('../../saved_flashcards.txt', '\n' + 'Type: ' + type + '\n' + 'Front: ' + front + '\n' + 'Back: ' + back + '\n' + '------------------------------------------------------', function(err) {
+        if (err) throw err;
+        console.log('It\'s saved!');
+    });
+}
