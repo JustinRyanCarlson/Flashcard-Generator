@@ -11,7 +11,7 @@ function BasicFlashCard(front, back) {
     this.basicCardBack = '';
 }
 
-fs.writeFile('message.txt', 'Hello Node.js', function(err) {
+fs.writeFile('PICK THE VARIABLES FOR FLASHCARDS YOU WANT TO ADD', '../../saved_flashcards.txt', function(err) {
     if (err) throw err;
     console.log('It\'s saved!');
 });
