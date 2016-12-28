@@ -10,3 +10,8 @@ function BasicFlashCard(front, back) {
     this.basicCardFront = '';
     this.basicCardBack = '';
 }
+
+fs.writeFile('message.txt', 'Hello Node.js', function(err) {
+    if (err) throw err;
+    console.log('It\'s saved!');
+});
