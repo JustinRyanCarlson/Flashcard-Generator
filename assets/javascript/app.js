@@ -11,6 +11,10 @@ function BasicFlashCard(front, back) {
     this.basicCardBack = '';
 }
 
+
+console.log('Hello! Welcome to my flashcard node.js app.');
+
+
 // DONT FORGET TO ADD IN THE VARIABLES
 fs.writeFile('PICK THE VARIABLES FOR FLASHCARDS YOU WANT TO ADD', '../../saved_flashcards.txt', function(err) {
     if (err) throw err;
