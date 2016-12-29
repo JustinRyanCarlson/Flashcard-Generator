@@ -2,6 +2,9 @@ var fs = require('fs');
 var cardType;
 var cardFront;
 var cardBack;
+var fullCardArr;
+var cardCloze;
+var cardClozeText;
 
 
 function ClozeFlashCard(text, cloze) {
@@ -38,15 +41,20 @@ console.log('');
 console.log('Example: node app.js basic Who was the first president of the United States, George Washington');
 console.log('');
 
-
+// needs to use the constructor
 if (process.argv[2] === 'basic') {
-    var fullCardArr = process.argv.splice(3).join(' ').split(',');
+    fullCardArr = process.argv.splice(3).join(' ').split(',');
     cardFront = fullCardArr[0];
     cardBack = fullCardArr[1];
     cardType = 'Basic';
     saveFlashCard(cardFront, cardBack, cardType);
 } else if (process.argv[2] === 'cloze') {
-
+    // need to be able to insert _________ for the black when () are noted
+    fullCardArr = process.argv.splice(3).join(' ').split(',');
+    cardCloze = fullCardArr[0];
+    cardClozeText = fullCardArr[1];
+    cardType = 'Cloze';
+    saveFlashCard(cardCloze, cardClozeText, cardType);
 } else {
     console.log('Please enter a valid flashcard argument');
 }
