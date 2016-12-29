@@ -7,17 +7,19 @@ var cardCloze;
 var cardClozeText;
 
 
-function ClozeFlashCard(text, cloze) {
-    this.clozeCardText = '';
-    this.clozeCardCloze = '';
+function ClozeFlashCard(text, cloze, type) {
+    this.clozeCardText = text;
+    this.clozeCardCloze = cloze;
+    this.clozeCardType = type;
     this.clozeReturn = function() {
         return this.clozeCardCloze;
     };
 }
 
-function BasicFlashCard(front, back) {
-    this.basicCardFront = '';
-    this.basicCardBack = '';
+function BasicFlashCard(front, back, type) {
+    this.basicCardFront = front;
+    this.basicCardBack = back;
+    this.basicCardType = type;
 }
 
 
@@ -47,22 +49,20 @@ if (process.argv[2] === 'basic') {
     cardFront = fullCardArr[0];
     cardBack = fullCardArr[1];
     cardType = 'Basic';
-    saveFlashCard(cardFront, cardBack, cardType);
+    var basicCard = new BasicFlashCard(cardFront, cardBack, cardType);
+    basicCard = JSON.stringify(basicCard);
+    saveFlashCard(basicCard);
 } else if (process.argv[2] === 'cloze') {
     // need to be able to insert _________ for the black when () are noted
-    fullCardArr = process.argv.splice(3).join(' ').split(',');
-    cardCloze = fullCardArr[0];
-    cardClozeText = fullCardArr[1];
-    cardType = 'Cloze';
-    saveFlashCard(cardCloze, cardClozeText, cardType);
+
 } else {
     console.log('Please enter a valid flashcard argument');
 }
 
 
 
-function saveFlashCard(front, back, type) {
-    fs.appendFile('../../saved_flashcards.txt', '\n' + 'Type: ' + type + '\n' + 'Front: ' + front + '\n' + 'Back: ' + back + '\n' + '------------------------------------------------------', function(err) {
+function saveFlashCard(cardObject) {
+    fs.appendFile('../../saved_flashcards.txt', cardObject + ',', function(err) {
         if (err) throw err;
         console.log('It\'s saved!');
     });
