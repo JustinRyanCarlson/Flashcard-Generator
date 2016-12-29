@@ -38,12 +38,12 @@ console.log('To use this application use the arguments:');
 console.log('1. node');
 console.log('2. Path to app.js file');
 console.log('3. Which type of flashcard you would like to create (basic or cloze)');
-console.log('4. The front then back of the basic flashcard with a comma seperating them OR the cloze then the cloze card text with a comma seperating them');
+console.log('4. The front then back of the basic flashcard with a comma seperating them OR the cloze text with the statement you want to cloze delete inside curly braces ({})');
 console.log('');
 console.log('Example: node app.js basic Who was the first president of the United States, George Washington');
 console.log('');
 
-// needs to use the constructor
+
 if (process.argv[2] === 'basic') {
     fullCardArr = process.argv.splice(3).join(' ').split(',');
     cardFront = fullCardArr[0];
@@ -53,8 +53,29 @@ if (process.argv[2] === 'basic') {
     basicCard = JSON.stringify(basicCard);
     saveFlashCard(basicCard);
 } else if (process.argv[2] === 'cloze') {
-    // need to be able to insert _________ for the black when () are noted
+    // need to be able to insert _________ for the black when {} are noted
+    var clozeWord = [];
+    fullCardArr = process.argv.splice(3).join(' ').split('');
 
+    for (var i = 0; i < fullCardArr.length; i++) {
+        if (fullCardArr[i] === '{') {
+            fullCardArr[i] = '_';
+            i++;
+            for (var j = i; fullCardArr[j] != '}'; j++) {
+                clozeWord.push(fullCardArr[j]);
+                fullCardArr[j] = '_';
+            }
+            fullCardArr[j++] = '_';
+        }
+    }
+    cardCloze = clozeWord.join('');
+    cardClozeText = fullCardArr.join('');
+    console.log(clozeWord, fullCardArr);
+
+    cardType = 'Cloze';
+    var clozeCard = new ClozeFlashCard(cardClozeText, cardCloze, cardType);
+    clozeCard = JSON.stringify(clozeCard);
+    saveFlashCard(clozeCard);
 } else {
     console.log('Please enter a valid flashcard argument');
 }
