@@ -1,4 +1,6 @@
+var basicExport = require('./basic_flashcard');
 var fs = require('fs');
+var clozeExport = require('./cloze_flashcard');
 var cardType;
 var cardFront;
 var cardBack;
@@ -7,23 +9,9 @@ var cardCloze;
 var cardClozeText;
 
 
-function ClozeFlashCard(text, cloze, type) {
-    this.clozeCardText = text;
-    this.clozeCardCloze = cloze;
-    this.clozeCardType = type;
-    this.clozeReturnCloze = function() {
-        return this.clozeCardCloze;
-    };
-    this.clozeReturnText = function() {
-        return this.clozeCardText;
-    };
-}
 
-function BasicFlashCard(front, back, type) {
-    this.basicCardFront = front;
-    this.basicCardBack = back;
-    this.basicCardType = type;
-}
+
+
 
 
 // 5: Constructor and prototype used to hold methods for basic flash cards
@@ -52,11 +40,10 @@ if (process.argv[2] === 'basic') {
     cardFront = fullCardArr[0];
     cardBack = fullCardArr[1];
     cardType = 'Basic';
-    var basicCard = new BasicFlashCard(cardFront, cardBack, cardType);
+    var basicCard = new basicExport.BasicFlashCard(cardFront, cardBack, cardType);
     basicCard = JSON.stringify(basicCard);
     saveFlashCard(basicCard);
 } else if (process.argv[2] === 'cloze') {
-    // need to be able to insert _________ for the black when {} are noted
     var clozeWord = [];
     fullCardArr = process.argv.splice(3).join(' ').split('');
 
@@ -76,13 +63,12 @@ if (process.argv[2] === 'basic') {
     console.log(clozeWord, fullCardArr);
 
     cardType = 'Cloze';
-    var clozeCard = new ClozeFlashCard(cardClozeText, cardCloze, cardType);
+    var clozeCard = new clozeExport.ClozeFlashCard(cardClozeText, cardCloze, cardType);
     clozeCard = JSON.stringify(clozeCard);
     saveFlashCard(clozeCard);
 } else {
     console.log('Please enter a valid flashcard argument');
 }
-
 
 
 function saveFlashCard(cardObject) {
