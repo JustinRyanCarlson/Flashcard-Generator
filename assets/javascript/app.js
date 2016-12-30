@@ -1,6 +1,6 @@
 var basicExport = require('./basic_flashcard');
-var fs = require('fs');
 var clozeExport = require('./cloze_flashcard');
+var fs = require('fs');
 var cardType;
 var cardFront;
 var cardBack;
