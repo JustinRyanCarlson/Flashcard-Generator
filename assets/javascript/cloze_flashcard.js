@@ -1,3 +1,4 @@
+// CONSTRUCTOR TO CREATE THE CLOZE STLYE FLASHCARD
 function ClozeFlashCard(text, cloze, type) {
     this.clozeCardText = text;
     this.clozeCardCloze = cloze;
@@ -10,4 +11,5 @@ function ClozeFlashCard(text, cloze, type) {
     };
 }
 
+// USED TO HAND THE DATA BACK FROM THE MODULE
 exports.ClozeFlashCard = ClozeFlashCard;
