@@ -28,6 +28,7 @@ if (process.argv[2] === 'basic') {
     cardFront = fullCardArr[0];
     cardBack = fullCardArr[1];
     cardType = 'Basic';
+
     // Creates a new objects using the BasicFlashCard constructor located in the
     // basic_flashcard.js file, passes in the card parameters and type
     var basicCard = new basicExport.BasicFlashCard(cardFront, cardBack, cardType);
@@ -68,6 +69,7 @@ if (process.argv[2] === 'basic') {
             fullCardArr[j++] = '_';
         }
     }
+
     // Joins the clozeWord array as a string (this is the cloze word)
     cardCloze = clozeWord.join('');
     // Joins the fullCardArr array as a string (this is the cloze text with underscores
@@ -83,6 +85,7 @@ if (process.argv[2] === 'basic') {
     // Calls the saveFlashCard function and passes in the newly created clozeCard object
     // as a string
     saveFlashCard(clozeCard);
+
 } else {
     console.log('Please enter a valid flashcard argument');
 }
